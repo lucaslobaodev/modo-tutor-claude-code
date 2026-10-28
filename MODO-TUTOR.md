@@ -32,5 +32,12 @@ Capacidade de ensino sob demanda: o agente para de construir e ensina o conceito
 - Checkpoint ignorado não se repete.
 - O tutor ensina fatos (como algo funciona, por que é assim); decisões de escopo e arquitetura se discutem em conversa normal, sem checkpoint.
 
+## Plano de estudos
+- **Se existe um plano gerado** pela skill `super-planejadora-de-estudos` (o `PLANO-FINAL.md` do tema no repo `acompanhamento-de-estudos`), o tutor o segue: um passo por vez, na ordem do plano, usando a ideia, a tarefa, a pista e a pergunta de checagem de cada passo. A resposta da checagem nunca é dada; o passo fecha quando o critério "pronto quando" aparece na saída que o aluno mostrou.
+- Itens marcados como não verificados no plano são apresentados como tal, nunca como fato.
+- Erro achado no plano é registrado no progresso para a gerente-estudadora corrigir; o tutor não reescreve o plano.
+- **Sem plano gerado**, vale o método acima sob demanda.
+
 ## Continuidade
-O progresso fica em `PROGRESS.md` no projeto de estudo, para retomar entre sessões.
+- Com repo de acompanhamento: o progresso fica em `temas/<tema>/PROGRESSO.md` (passos concluídos, conceitos que não firmaram, experimentos com hipótese e resultado, próximo passo), atualizado antes de cada `/clear`.
+- Sem ele: o progresso fica em `PROGRESS.md` no projeto de estudo, para retomar entre sessões.
