@@ -42,11 +42,22 @@ cp -n .claude/agents/estudos-*.md ~/.claude/agents/
 cp -rn .claude/skills/super-planejadora-de-estudos ~/.claude/skills/
 ```
 
-Os agentes têm o prefixo `estudos-` para não colidir com agentes que você já tenha (um `revisora` ou `verificador` global, por exemplo). O `-n` não sobrescreve nada: se um arquivo já existia, ele **não** é atualizado — confira com `diff` e substitua à mão ao atualizar a versão. A skill instalada carrega o próprio template (`template/`), então não precisa deste clone depois da instalação.
+Os agentes têm o prefixo `estudos-` para não colidir com agentes que você já tenha (um `revisora` ou `verificador` global, por exemplo). O `-n` não sobrescreve nada: se um arquivo já existia, ele **não** é atualizado.
+
+Para **atualizar** depois de um `git pull` deste repo:
+
+```bash
+# skill: substitua inteira (ela não guarda estado do usuário; o estado mora no repo de acompanhamento)
+rm -r ~/.claude/skills/super-planejadora-de-estudos
+cp -r .claude/skills/super-planejadora-de-estudos ~/.claude/skills/
+# agentes: veja o que muda e copie conscientemente
+for f in .claude/agents/estudos-*.md; do diff -u ~/.claude/agents/$(basename $f) $f; done
+cp .claude/agents/estudos-*.md ~/.claude/agents/   # depois de conferir o diff (sobrescreve ajustes locais, como model:)
+``` A skill instalada carrega o próprio template (`template/`), então não precisa deste clone depois da instalação.
 
 Só para um projeto: copie as mesmas pastas para o `.claude/` do projeto. Abrir o Claude Code dentro deste repo também já carrega a skill e os agentes.
 
-O `model:` de cada agente (`sonnet` para leitura em volume, `opus` para julgamento) é uma escolha inicial; ajuste ao seu plano de uso. A `estudos-projetista` não declara `tools`, então herda todas (é o agente de propósito geral).
+O `model:` de cada agente (`sonnet` para leitura em volume, `opus` para julgamento) é uma escolha inicial; ajuste ao seu plano de uso. A `estudos-projetista` é o agente de propósito geral (lê, escreve, roda comandos e pesquisa na web). Nenhum agente da skill tem a ferramenta Agent: por desenho, só a sessão principal (gerente-estudadora) despacha.
 
 ### Pré-requisitos
 
