@@ -53,7 +53,9 @@ cp -r .claude/skills/super-planejadora-de-estudos ~/.claude/skills/
 # agentes: veja o que muda e copie conscientemente
 for f in .claude/agents/estudos-*.md; do diff -u ~/.claude/agents/$(basename $f) $f; done
 cp .claude/agents/estudos-*.md ~/.claude/agents/   # depois de conferir o diff (sobrescreve ajustes locais, como model:)
-``` A skill instalada carrega o próprio template (`template/`), então não precisa deste clone depois da instalação.
+```
+
+A skill instalada carrega o próprio template (`template/`), então não precisa deste clone depois da instalação.
 
 Só para um projeto: copie as mesmas pastas para o `.claude/` do projeto. Abrir o Claude Code dentro deste repo também já carrega a skill e os agentes.
 
