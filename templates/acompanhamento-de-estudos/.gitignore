@@ -1,0 +1,9 @@
+# Material bruto: PDFs, transcrições e áudio ficam só na máquina (direito autoral e tamanho).
+temas/*/material/
+*.pdf
+*.mp3
+*.m4a
+*.wav
+# Nunca versionar segredo.
+.env
+.env.*
