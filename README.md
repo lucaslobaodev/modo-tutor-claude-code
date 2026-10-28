@@ -2,7 +2,7 @@
 
 Duas peças para estudar a fundo com o Claude Code:
 
-1. **Modo tutor** ([MODO-TUTOR.md](MODO-TUTOR.md)): o agente ensina, o aluno escreve o código, o agente revisa, o aluno roda. Versionado aqui e ajustado conforme a prática mostra o que funciona.
+1. **Modo tutor** ([MODO-TUTOR.md](.claude/skills/super-planejadora-de-estudos/template/MODO-TUTOR.md)): o agente ensina, o aluno escreve o código, o agente revisa, o aluno roda. **Fonte única:** esse arquivo dentro do template da skill; é ele que vai para o repo de acompanhamento na criação. Não há cópia na raiz, para não divergir.
 2. **Super planejadora de estudos** (skill + agentes em [.claude/](.claude/)): monta, para qualquer tema técnico, um plano de estudos **verificado** e um **super projeto** prático, que depois o modo tutor segue passo a passo.
 
 ## Por que a planejadora existe
@@ -17,16 +17,17 @@ Pedir "me faça um plano de estudos de X" a um modelo dá um plano escrito de me
 ## O que tem aqui
 
 ```
-MODO-TUTOR.md                                  método do tutor
 .claude/skills/super-planejadora-de-estudos/
-  SKILL.md                                     a orquestração (etapas, pausas, retomada)
-  formatos.md                                  o contrato de saída de cada agente
-  fatiamento.md                                teto de 50%, cobertura, redespacho, transcrição
+  SKILL.md                     a orquestração (etapas, pausas, retomada)
+  formatos.md                  o contrato de saída de cada agente
+  fatiamento.md                teto de 50%, cobertura, redespacho, transcrição
+  template/                    modelo do repo privado de estado
+    MODO-TUTOR.md              método do tutor (fonte única)
+    CLAUDE.md  INDICE.md  README.md  .gitignore  temas/_modelo/
 .claude/agents/
-  leitora-bibliografa.md   mini-classificador.md   verificador.md
-  pedagoga.md              projetista.md           tech-lead-magister.md
-  mini-revisor.md          revisora.md
-templates/acompanhamento-de-estudos/           modelo do repo privado de estado
+  estudos-leitora-bibliografa.md   estudos-mini-classificador.md   estudos-verificador.md
+  estudos-pedagoga.md              estudos-projetista.md           estudos-tech-lead-magister.md
+  estudos-mini-revisor.md          estudos-revisora.md
 ```
 
 ## Instalação
@@ -37,13 +38,15 @@ Para usar em qualquer pasta (recomendado, porque as sessões rodam dentro do rep
 git clone https://github.com/lucaslobaodev/modo-tutor-claude-code.git
 cd modo-tutor-claude-code
 mkdir -p ~/.claude/agents ~/.claude/skills
-cp .claude/agents/*.md ~/.claude/agents/
-cp -r .claude/skills/super-planejadora-de-estudos ~/.claude/skills/
+cp -n .claude/agents/estudos-*.md ~/.claude/agents/
+cp -rn .claude/skills/super-planejadora-de-estudos ~/.claude/skills/
 ```
+
+Os agentes têm o prefixo `estudos-` para não colidir com agentes que você já tenha (um `revisora` ou `verificador` global, por exemplo). O `-n` não sobrescreve nada: se um arquivo já existia, ele **não** é atualizado — confira com `diff` e substitua à mão ao atualizar a versão. A skill instalada carrega o próprio template (`template/`), então não precisa deste clone depois da instalação.
 
 Só para um projeto: copie as mesmas pastas para o `.claude/` do projeto. Abrir o Claude Code dentro deste repo também já carrega a skill e os agentes.
 
-O `model:` de cada agente (`sonnet` para leitura em volume, `opus` para julgamento) é uma escolha inicial; ajuste ao seu plano de uso. A `projetista` não declara `tools`, então herda todas (é o agente de propósito geral).
+O `model:` de cada agente (`sonnet` para leitura em volume, `opus` para julgamento) é uma escolha inicial; ajuste ao seu plano de uso. A `estudos-projetista` não declara `tools`, então herda todas (é o agente de propósito geral).
 
 ### Pré-requisitos
 
@@ -54,18 +57,18 @@ O `model:` de cada agente (`sonnet` para leitura em volume, `opus` para julgamen
 ## Como usar, de ponta a ponta
 
 1. Abra o Claude Code e diga: *"você é a gerente-estudadora; quero estudar X"*. A sessão carrega a skill.
-2. **Repo de acompanhamento.** Se você ainda não tem o `acompanhamento-de-estudos`, a sessão pede confirmação e o cria **privado** na sua conta a partir do template, junto com uma cópia do `MODO-TUTOR.md`. Daí em diante, abra as sessões dentro do clone dele.
+2. **Repo de acompanhamento.** Se você ainda não tem o `acompanhamento-de-estudos`, a sessão pede confirmação e o cria **privado** na sua conta a partir do `template/` da skill (que inclui o `MODO-TUTOR.md`). Daí em diante, abra as sessões dentro do clone dele.
 3. **Escopo.** A gerente pergunta objetivo, nível, idiomas e recorte de versão.
-4. **Bibliografia** (`leitora-bibliografa`): livros em qualquer língua, docs oficiais, artigos, fóruns, cursos, vídeos, repositórios.
+4. **Bibliografia** (`estudos-leitora-bibliografa`): livros em qualquer língua, docs oficiais, artigos, fóruns, cursos, vídeos, repositórios.
 5. **Pausa humana 1:** você obtém os PDFs da lista de download, salva em `temas/<tema>/material/` e diz o que fica e o que sai.
 6. **Fatiamento** (a própria gerente): cada fonte vira fatias lógicas (capítulo, seção, vídeo) de no máximo 50% da janela de contexto do modelo que vai ler.
-7. **Pausa humana 2:** você aprova o número de despachos (é o custo da rodada).
-8. **Inventário** (`mini-classificador`, em paralelo): cada fatia lida inteira, com prova de cobertura; o que faltou é redespachado.
-9. **Verificação** (`verificador`): links abertos e fatos de versão conferidos na fonte primária.
-10. **Pedagogia** (`pedagoga`): deduplica, mede o que é central e o que é nicho, monta o grafo de pré-requisitos e o plano em fases, módulos e passos atômicos.
-11. **Super projeto** (`projetista`). **Pausa humana 3:** você aprova ou pede outra ideia.
-12. **Consolidação** (`tech-lead-magister`): cada fase do projeto amarrada aos módulos do plano.
-13. **Revisão** (`mini-revisor` por partes, consolidados pela `revisora`); a `tech-lead-magister` responde cada achado e escreve o `PLANO-FINAL.md`.
+7. **Pausa humana 2:** você aprova a estimativa de despachos do pipeline inteiro (o custo).
+8. **Inventário** (`estudos-mini-classificador`, em paralelo): cada fatia lida inteira, com prova de cobertura; o que faltou é redespachado.
+9. **Verificação** (`estudos-verificador`): links abertos e fatos de versão conferidos na fonte primária.
+10. **Pedagogia** (`estudos-pedagoga`): deduplica, mede o que é central e o que é nicho, monta o grafo de pré-requisitos e o plano em fases, módulos e passos atômicos.
+11. **Super projeto** (`estudos-projetista`). **Pausa humana 3:** você aprova ou pede outra ideia.
+12. **Consolidação** (`estudos-tech-lead-magister`): cada fase do projeto amarrada aos módulos do plano.
+13. **Revisão** (**pausa 2b**, curta: ok para o nº de mini-revisores; `estudos-mini-revisor` por partes, consolidados pela `estudos-revisora`). A `estudos-tech-lead-magister` responde cada achado e gera `plano-v2`; com parecer aprovado, promove a `PLANO-FINAL.md`. Reprovado: segunda rodada; reprovado de novo, decide você.
 14. **Pausa humana 4:** você aceita a entrega.
 15. **Estudo:** nova sessão, *"você é a tutora do tema X"*. Ela segue o `PLANO-FINAL.md` no modo tutor e registra seu progresso.
 
