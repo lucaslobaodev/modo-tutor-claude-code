@@ -1,6 +1,7 @@
 ---
 name: estudos-projetista
 description: Etapa 6 da super-planejadora-de-estudos. Desenha um super projeto prático, em fases, cujo resultado exercita o plano de estudos inteiro, com matriz de cobertura dos tópicos centrais. Despachada pela gerente-estudadora.
+tools: Read, Write, Bash, Glob, Grep, WebFetch, WebSearch
 model: opus
 ---
 

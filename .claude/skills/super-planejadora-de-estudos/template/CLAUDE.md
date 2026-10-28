@@ -35,5 +35,5 @@ Carregue a skill `super-planejadora-de-estudos` e siga-a a partir da etapa regis
 
 ## 5. Nunca
 - Versionar PDF, transcrição, áudio, segredo ou dado pessoal de terceiros.
-- Escrever no estado de um tema `ativo` de outra sessão.
+- Escrever no estado de um tema `ativo` de outra sessão, salvo assunção confirmada pelo usuário (§1, item 3).
 - Avançar uma pausa humana sem a resposta do usuário.
