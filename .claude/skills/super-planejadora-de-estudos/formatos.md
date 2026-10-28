@@ -2,7 +2,7 @@
 
 Contrato único: cada agente escreve **exatamente** o formato abaixo, no caminho que a gerente passou no despacho. A saída de uma etapa é a entrada da próxima; se um campo muda aqui, muda em todos os agentes que o citam.
 
-Caminhos são relativos à pasta do tema no repo de acompanhamento: `temas/<tema>/`.
+Nos textos, cada papel (leitora-bibliografa, mini-classificador...) é o agente `estudos-<papel>`. Caminhos são relativos à pasta do tema no repo de acompanhamento: `temas/<tema>/`.
 
 ## Identificadores
 
@@ -15,6 +15,8 @@ Caminhos são relativos à pasta do tema no repo de acompanhamento: `temas/<tema
 | Passo do plano | `F<n>.M<n>.P<n>` | `F2.M3.P4` | pedagoga |
 | Experimento | `F<n>.E<n>` | `F2.E3` | pedagoga |
 | Fase do super projeto | `SP<n>` | `SP2` | projetista |
+| Lote de verificação | `V` + 2 dígitos | `V02` | gerente (etapa 4) |
+| Rodada de revisão | `r<n>` | `r1` | gerente (etapa 8) |
 | Achado de revisão | `R-<parte>-<n>` | `R-plano-F2-07` | mini-revisor |
 
 Um ID nunca é reaproveitado. Item removido fica com o ID "aposentado" na lista de mudanças, não some calado.
@@ -61,17 +63,31 @@ macrotopicos:
         ref: "p. 121"                     # só página e/ou link; nada além disso
         tipo: conceito                    # conceito | procedimento | armadilha | fato-de-versao | opiniao-do-autor
         nivel: fundamento                 # fundamento | intermediario | avancado
-        prereqs: [S03-f04-t03]            # IDs brutos, de qualquer fatia, ou texto livre entre aspas se não souber o ID
+        prereqs: ["CMD e ENTRYPOINT"]     # ID bruto só se for desta fatia (ex.: S03-f07-t03); de fora dela, texto entre aspas (a pedagoga resolve)
         exercicio: "Try it now, p. 122"   # ou null
         erro_comum: "achar que unhealthy reinicia o container"   # ou null
         versao: null                      # ex.: "Engine >= 25.0, segundo o autor (p. 13)"
-        divergencia: null                 # ex.: "S07 diz o contrário em <link>"
+        divergencia: null                 # só contradição DENTRO da fatia, ex.: "p. 124 diz o oposto de p. 121"; divergência entre fontes é da pedagoga e do verificador
         duvida: false                     # true = o classificador desconfia; vai para o verificador
 ```
 
 Regras: um microtópico por ideia; `ref` sempre presente; `fato-de-versao` exige `versao`; nenhum campo inventado: se a fonte não diz, o valor é `null`.
 
-## 4. `verificacao/<lote>.yaml` (verificador)
+## 4a. `verificacao/<lote>-entrada.md` (gerente)
+
+```markdown
+# Lote V02 — entrada
+Inventários de apoio: fontes/inventarios/S03-f07.yaml, fontes/inventarios/S07-f01.yaml
+## URLs
+- https://...   (citada em: S03-f07-t01, bibliografia S07)
+## Afirmações
+| alvo | afirmação | versao | divergencia | motivo da checagem |
+|---|---|---|---|---|
+| S03-f07-t01 | ... | null | null | duvida |
+```
+Toda URL e todo alvo listados aqui aparecem uma vez na saída.
+
+## 4b. `verificacao/<lote>.yaml` (verificador)
 
 ```yaml
 lote: V02
@@ -87,7 +103,9 @@ itens:
 
 ## 5. `pedagogia/topicos.yaml` e `pedagogia/plano-base.md` (pedagoga)
 
-`topicos.yaml`: um item por tópico canônico, com `id`, `titulo`, `fundidos` (IDs brutos que viraram este), `frequencia` (nº de fontes distintas), `classe` (`central` se ≥ 3 fontes ou se for pré-requisito de ≥ 3 tópicos; `nicho` se 1 fonte; `apoio` no meio), `prereqs` (IDs `T`), `status_verificacao` (o pior status entre os fundidos).
+`topicos.yaml`: um item por tópico canônico, com `id`, `titulo`, `fundidos` (IDs brutos que viraram este), `frequencia` (nº de fontes distintas), `classe` (`central` se ≥ 3 fontes ou se for pré-requisito de ≥ 3 tópicos; `nicho` se 1 fonte; `apoio` no meio), `prereqs` (IDs `T`), `status_verificacao` (o pior status entre os fundidos, na ordem `NAO_VERIFICADO` > `CORRIGIDO` > `CONFIRMADO` > `nao_checado`; `nao_checado` = micro que nenhum lote incluiu), `fase` (ex.: `F2`; preenchido pela pedagoga ao dividir em fases).
+
+`fases.md` (só no modo em dois tempos, tempo a): uma seção por fase, `F<n> — <objetivo observável>`, com a lista de tópicos `T` e, para cada um, os IDs brutos de `fundidos` (é o que diz à gerente quais inventários mandar no tempo b).
 
 `plano-base.md`: fases → módulos → passos. Cada passo:
 
@@ -110,6 +128,8 @@ Objetivo em uma frase; arquitetura mínima; fases `SP1..SPn`, cada uma com: entr
 
 ## 7. `consolidado/plano-vN.md` (tech-lead-magister)
 
+`plano-v1.md` sai da consolidação; `plano-v2.md` da resposta à `r1`; `plano-v3.md` da resposta à `r2`.
+
 O plano-base com cada módulo amarrado a uma fase `SP` (`Módulo F2.M3 → SP2`), a ordem final de estudo intercalando estudo e construção, e a tabela `SP × F.M` no topo.
 
 ## 8. `revisao/<rodada>/<parte>.yaml` (mini-revisor) e `revisao/<rodada>/parecer.md` (revisora)
@@ -129,6 +149,6 @@ achados:
 
 `parecer.md`: achados deduplicados e ordenados por severidade, cada um com os IDs `R-` de origem, e um veredito: `APROVADO` · `APROVADO COM AJUSTES` · `REPROVADO`.
 
-## 9. `PLANO-FINAL.md` e `consolidado/mudancas.md` (tech-lead-magister)
+## 9. `consolidado/mudancas-r<n>.md` e `PLANO-FINAL.md` (tech-lead-magister)
 
-`PLANO-FINAL.md` é o artefato que a tutora segue. `mudancas.md` responde cada achado do parecer: `aceito` (onde mudou) ou `rejeitado` (motivo). Achado sem resposta = versão final não está pronta.
+`mudancas-r<n>.md` responde cada achado do parecer: `aceito` (onde mudou) ou `rejeitado` (motivo). Achado sem resposta = a nova versão não está pronta. `PLANO-FINAL.md` é a última `plano-vN.md` promovida, só com parecer `APROVADO`/`APROVADO COM AJUSTES` ou com decisão do usuário registrada após a `r2`; é o artefato que a tutora segue.

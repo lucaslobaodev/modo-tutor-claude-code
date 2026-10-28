@@ -50,7 +50,7 @@ Se nada funcionar, o vídeo sai do pipeline e entra nas **Lacunas** com o motivo
 Para cada fonte do `REGISTRO.md`:
 
 1. **Soma das faixas `lida`** de todas as fatias da fonte = **extensão total**. Faixa faltando, sobreposta por engano ou listada em `nao_lida` sem motivo aceitável = buraco.
-2. **Âncoras**: em ao menos uma fatia por fonte (e em toda fatia que voltou rápido demais ou com poucos micro para o tamanho), a gerente confere as âncoras contra o texto real (`pdftotext ... | grep -F "<trecho>"`). Âncora que não existe no texto = fatia não lida: refaz inteira.
+2. **Âncoras**: em ao menos uma fatia por fonte (e em toda fatia que voltou rápido demais ou com poucos micro para o tamanho), a gerente confere as âncoras contra o texto real **sem** `-layout` e com espaços normalizados dos dois lados, porque o `-layout` e as quebras de linha mudam espaços: `pdftotext -f <p> -l <p> arq.pdf - | tr -s ' \n' ' ' | grep -iF "$(echo '<trecho>' | tr -s ' ')"`. Hifenização de fim de linha também quebra o casamento: em caso de falha, tente um pedaço menor do trecho antes de condenar a fatia. Âncora que não existe no texto = fatia não lida: refaz inteira.
 3. **Densidade**: fatia com micro muito abaixo da média da mesma fonte, por tamanho, é suspeita. Abra 1-2 páginas do meio da faixa e veja se o assunto delas aparece no inventário.
 4. Registre o resultado no `ESTADO.md`, tabela de fatias: `ok` · `redespachar: <faixa> (<motivo>)`.
 
