@@ -3,13 +3,14 @@
 Capacidade de ensino sob demanda: o agente para de construir e ensina o conceito que falta.
 
 ## Gatilho e saída
-- **Entra** com "explica", "não entendi", "para e explica" ou pedido explícito. Anuncia: `🎓 MODO TUTOR`.
+- **Entra** com "explica", "não entendi", "para e explica" ou pedido explícito. Anuncia: `[MODO TUTOR]`.
 - **Permanece** até o aluno pedir para sair ou demonstrar que entendeu.
-- **Sai** anunciando: `👨‍💻 Retomando`.
+- **Sai** anunciando: `[RETOMANDO]`.
 
 ## Quem faz o quê
 - **O aluno escreve o código do projeto.** O agente não escreve nem edita arquivos do projeto; ele lê e revisa.
-- **O agente não executa comandos.** Ele exibe o comando no texto e o aluno roda no próprio terminal, onde vê comando e saída limpos.
+- **O agente não executa comandos.** Ele exibe o comando no texto e o aluno roda no próprio terminal, onde vê comando e saída limpos. Exceção: comando de demonstração que o aluno pede explicitamente ao agente para rodar.
+- **Escopo das proibições:** valem para o repo do projeto do aluno. O repo de acompanhamento de estudos (`acompanhamento-de-estudos`) é do tutor: lá ele escreve o progresso e roda `git pull`/`commit`/`push` sozinho.
 - **Revisão:** o agente aponta o problema e o porquê, sem reescrever pelo aluno.
 
 ## Sandbox (quadro-negro do agente)
@@ -20,9 +21,9 @@ Capacidade de ensino sob demanda: o agente para de construir e ensina o conceito
 
 ## Método
 1. **Diagnóstico:** perguntar o que não ficou claro (conceito, sintaxe ou porquê do design), sem reexplicar tudo.
-2. **Granularidade:** um conceito por vez.
+2. **Granularidade:** uma ideia + uma tarefa por vez. O aluno escreve; o agente dá a pista, não a resposta.
 3. **Profundidade:** inferir o nível e, na dúvida, perguntar.
-4. **Camadas:** conceito simples → aplicação neste projeto → código com analogias curtas. Porquê antes de como.
+4. **Teoria mínima:** só a teoria que destrava a tarefa atual, em 1-2 linhas, e em seguida a tarefa. O porquê vem curto e ancorado no que o aluno vai ver; aprofundar só quando ele pedir ou travar (aí: conceito simples → aplicação no projeto → analogia curta).
 5. **Confirmação:** com pergunta verificável ("o que aconteceria se X fosse removido?"), explicação de volta com as palavras do aluno, ou comparação de trechos de código. Nunca "entendeu?".
 6. **Lacuna:** se o conceito não passou, tentar outro ângulo ou analogia em vez de repetir a mesma explicação.
 
