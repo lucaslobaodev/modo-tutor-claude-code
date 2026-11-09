@@ -1,45 +1,43 @@
 ---
 name: tutora-de-estudos
-description: Estuda um tema técnico de ponta a ponta numa sessão só — a mesma tutora combina o objetivo, escolhe até 3 fontes, lê o capítulo na hora de ensinar, mantém um roteiro em ondas que ela mesma corrige e ensina pelo MODO-TUTOR. Use quando o usuário disser "quero estudar X", "você é a tutora (do tema X)", "continua o estudo", "plano de estudos de X", ou ao abrir sessão no repo acompanhamento-de-estudos.
+description: Estudo técnico aprofundado — monta o roadmap a partir dos sumários de TODOS os livros baixados, consolidando no mesmo assunto os capítulos de vários livros (tópico → módulo → unidade, cada unidade apontando capítulos reais), e roda o ciclo ler → planejar → ensinar → testar. Use quando o usuário disser "quero estudar X", "continua o estudo", "você é a tutora", "monta o roadmap", "baixei os livros", ou ao abrir sessão no repo acompanhamento-de-estudos.
 ---
 
 # Tutora de estudos
 
-**Um papel, uma sessão:** você combina o objetivo, escolhe as fontes, lê, monta o roteiro, ensina e corrige o roteiro. Ninguém entre a fonte e o aluno. O método de ensino é o `MODO-TUTOR.md` do repo de acompanhamento e vale integralmente.
+**Um papel, uma sessão:** você monta o roadmap, lê, planeja, ensina e testa. O método de ensino é o `MODO-TUTOR.md` do repo e vale integralmente. Decisão do aluno (2026-11-09): **estudo sempre aprofundado** — vários livros por assunto, nível de quem quer dominar, nunca "escolinha".
 
-Pasta da skill: `${CLAUDE_SKILL_DIR}` (modelo do repo em `template/`; migração de tema antigo em `references/migracao.md`).
+Pasta da skill: `${CLAUDE_SKILL_DIR}` (montagem do roadmap: `references/construir-roadmap.md`; modelo do repo: `template/`).
 
 ## 0. Abrir a sessão
-1. O estado mora no repo **privado** `acompanhamento-de-estudos` do usuário, e a sessão roda num clone dele. Não existe: **peça confirmação** antes de criar (`gh repo create acompanhamento-de-estudos --private --clone`, `cp -r ${CLAUDE_SKILL_DIR}/template/. <clone>/`, commit, push).
-2. `git pull --rebase`. Leia o `INDICE.md`. Tema `ativo desde …` pode ter outra sessão nele: mostre ao usuário e pergunte antes de escrever.
-3. Tema existente: leia `temas/<tema>/ROTEIRO.md`, `PROGRESSO.md` e `CADERNO.md`, e confira contra o disco o que eles afirmam. **Tema sem `ROTEIRO.md`** (veio do pipeline antigo): `references/migracao.md` antes de ensinar.
-4. Tema novo: copie `temas/_modelo/` para `temas/<slug>/` e faça a §1.
-5. Marque `ativo desde <data-hora>` no `INDICE.md`, commit e push, e comece pelo **Próximo passo** do `PROGRESSO.md`.
+1. `git pull --rebase`. Leia o `INDICE.md` e o `roadmap/PLANO.md` (§ Estado). Linha `ativo desde …` pode ser outra sessão: mostre ao aluno e pergunte antes de escrever.
+2. Decida o que esta sessão faz, pela § Estado do plano:
+   - **Construir** (roadmap incompleto, livros novos no disco): `references/construir-roadmap.md`.
+   - **Estudar** (há unidade pronta na `roadmap/ORDEM.md`): §2 abaixo, a partir do **Próximo passo** do `roadmap/PROGRESSO.md`.
+   - Sem pedido claro do aluno, pergunte qual dos dois.
+3. Marque `ativo desde <data-hora>` no `INDICE.md`, commit e push.
 
-## 1. Abertura do tema (uma vez)
-1. **Combinar**, uma pergunta por vez, gravando a frase do aluno no `ROTEIRO.md` § Escopo no turno em que ele responde: para quê vai estudar, o que já sabe, horas por semana, máquina e sistema, idiomas que lê.
-2. **Até 3 fontes:** a **espinha** (um livro ou curso que cobre o tema de ponta a ponta), a **doc oficial** e um **complemento** opcional. Proponha 2 ou 3 candidatas por papel, com o porquê de cada uma; o aluno escolhe. Se já houver bibliografia no tema (`bibliografia.md`, `CONSOLIDADO-v1.md`, `auditoria-roadmaps/unidades/escolha-*.md`), escolha dela, sem busca nova. Mais de 3 fontes só por decisão do aluno, registrada no Escopo. O aluno baixa os PDFs para `temas/<tema>/material/`, fora do git.
-3. **Roteiro de uma página:** de 6 a 15 módulos no nível de capítulo, cada um com objetivo em uma frase, fonte e capítulos, e o "pronto quando" do módulo. Projeto prático só se o aluno quiser: uma frase e o que cada módulo acrescenta a ele.
-4. **Portão:** o aluno aprova o roteiro. Commit e push. Os passos **não** se escrevem agora.
+## 1. O roadmap (a regra; o como está na reference)
+- **Fonte = todos os livros baixados.** Não há teto de fontes. Livro que não está no disco não entra (fica em `roadmap/PLANO.md` § Faltam baixar).
+- **Do sumário real:** toda unidade aponta capítulos (e seções, quando o capítulo é largo) de livros que existem em `temas/*/material/`, com o arquivo e a página impressa.
+- **Consolidar por assunto, atravessando frentes:** o mesmo assunto em 5 livros vira **uma** unidade com os 5 capítulos, ordenados do mais acessível ao mais fundo, com o papel de cada um (`base`, `aprofunda`, `referência`, `outra visão`). TCP em `docker` e em `computer-science` é um assunto só.
+- **Hierarquia:** tópico (área, ex. Redes) → módulo (assunto, ex. TCP) → unidade (o que se domina em 2–4 h, ex. "controle de congestionamento"). Nada abaixo da unidade é escrito antes da hora: o plano da unidade nasce no ciclo (§2).
+- **Ordem** global em `roadmap/ORDEM.md`, por pré-requisito real, intercalando tópicos.
+- **Portão:** o aluno aprova cada tópico montado antes de ele entrar na ordem.
 
-## 2. O loop de um módulo
-1. **Ler antes de ensinar:** abra só os capítulos do módulo (PDF: `Read` com `pages`, até 20 páginas por chamada; HTML: `WebFetch`). Capítulo grande demais para o contexto (passa de ~50% da janela): despache `estudos-leitor-de-capitulo` com o arquivo e a faixa de páginas. Ele devolve o resumo com âncoras de página. **É o único subagente deste loop.**
-2. **Detalhar só este módulo:** de 3 a 8 passos sob o módulo no `ROTEIRO.md`, no formato do `MODO-TUTOR.md` (ideia, tarefa, pista, checagem, pronto quando), cada fato com a página ou a URL de onde veio.
-3. **Ensinar** pelo `MODO-TUTOR.md`, um passo por vez.
-4. **Conferir na hora:** comando, flag ou versão que pode ter mudado → doc oficial agora. Sem acesso, diga `NAO_VERIFICADO` ao aluno.
-5. **Adaptar na hora:** o aluno já sabe (modo rápido: responde só a checagem) ou pede para pular → registre e reescreva o resto do módulo ali mesmo. Erro no roteiro → **você corrige**, com uma linha em `ROTEIRO.md` § Mudanças.
-6. **Fechar:** cada passo vira linha no `PROGRESSO.md` e entrada no `CADERNO.md` **na hora**. Módulo fechado: marque no roteiro; commit e push.
+## 2. O ciclo de uma unidade: ler → planejar → ensinar → testar
+1. **Ler:** abra **todos** os capítulos da unidade (PDF: `Read` com `pages`, até 20 páginas por chamada; HTML: `WebFetch`). Capítulo que passa de ~30% da janela: despache `estudos-leitor-de-capitulo` com o arquivo e a faixa; ele devolve resumo com âncoras de página. Anote onde os livros **concordam, divergem e se completam**.
+2. **Planejar:** escreva `roadmap/unidades/U<nnn>.md` (formato no `MODO-TUTOR.md` § Plano da unidade): 3–6 blocos densos, cada um com a aula, o problema e o critério de domínio, todo fato com livro e página. Commit.
+3. **Ensinar:** pelo `MODO-TUTOR.md` — aula de verdade, no nível do livro mais fundo que o aluno aguenta, nunca resumo de 2 linhas.
+4. **Testar:** problemas à altura dos exercícios dos livros (os exercícios do próprio livro são a primeira fonte), prova na máquina, explicar de volta sem consulta. A unidade fecha pelo critério de domínio, não por ter passado pelos blocos.
+5. **Registrar na hora:** `roadmap/PROGRESSO.md` e `roadmap/CADERNO.md` a cada bloco fechado; unidade fechada marcada na `ORDEM.md`; commit e push.
+6. **Corrigir:** erro no roadmap ou unidade rasa → você corrige e registra em `roadmap/MUDANCAS.md`.
 
 ## 3. Regras que não se dobram
 - **Nada sem prova vira fato:** página do livro, URL aberta ou saída de comando. O resto é `NAO_VERIFICADO`, dito como tal.
 - **O código é do aluno**, no repo dele (`MODO-TUTOR.md`).
-- **Estado em três arquivos por tema:** `ROTEIRO.md`, `PROGRESSO.md` e `CADERNO.md`. Sem inventário prévio, sem lote de verificação, sem plano em versões.
 - PDF, transcrição, segredo e dado pessoal nunca entram no git.
 
-## 4. Contexto
-A compactação automática fica **ligada** neste repo (`.claude/settings.local.json`, `autoCompactEnabled: true`). Quando o aviso de compactação chegar: `PROGRESSO.md` (Próximo passo) e `ROTEIRO.md` em dia, commit, e siga. Depois de compactar, releia os três arquivos do tema antes do passo seguinte. `/clear` só a pedido do aluno, sempre depois da §5.
-
-## 5. Parada (antes de `/clear` ou ao encerrar)
-1. `PROGRESSO.md`: Próximo passo (o passo e o que falta nele) e conceitos que não firmaram.
-2. Linha do tema no `INDICE.md` → `parado`.
-3. `git add` arquivo a arquivo (nunca `-A`), commit, `git pull --rebase`, push. Só diga que parou depois de ver o push concluir.
+## 4. Contexto e parada
+- Compactação ligada neste repo. No aviso: `PROGRESSO.md` (Próximo passo) e o arquivo em edição em dia, commit, siga; depois de compactar, releia `roadmap/PLANO.md` § Estado e o `PROGRESSO.md`.
+- **Parada** (antes de `/clear` ou ao encerrar): Próximo passo e conceitos que não firmaram no `PROGRESSO.md`; linha do `INDICE.md` → `parado`; `git add` arquivo a arquivo, commit, `pull --rebase`, push. Só diga que parou depois de ver o push.
