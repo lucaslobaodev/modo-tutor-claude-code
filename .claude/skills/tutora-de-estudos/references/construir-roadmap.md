@@ -49,6 +49,8 @@ Tópico só é dado como concluído depois desta revisão — e erro achado nela
 3. Despache a **revisora em contexto limpo, modelo de julgamento (opus)**, com o brief; ela amostra citações no PDF e procura A faltou encaixar · B assunto sem unidade · C lugar errado · D repetição · E ordem · F citação errada · G afirmação sem prova, e escreve "Causas".
 4. Corrija todos os achados (ou registre por que não), rode o passo 1 de novo, e **leve cada Causa para as regras acima**. Só então o tópico vai ao aluno como concluído.
 
+- **HTML único para o aluno (decisão de 2026-11-10):** depois de montar ou corrigir qualquer módulo, rode `cobertura.py` e `python3 auditoria-roadmaps/scripts/roadmap_html_geral.py` — gera `roadmap/ROADMAP.html` com TODOS os tópicos (índice lateral, estado de cada módulo, cobertura por tópico, busca). É esse arquivo que o aluno abre para aprovar.
+
 ## F4 · Portão e ordem
 - Mostre ao aluno o ROADMAP do tópico (módulos, nº de unidades, livros que entraram e quais deles estão `não baixado`). Aprovado → entra na `roadmap/ORDEM.md` (ordem global, intercalando tópicos por pré-requisito), commit.
 - Livro baixado depois: volte a F1–F3 só nos assuntos dele e registre em `roadmap/MUDANCAS.md`; unidade já estudada não se reabre, ganha "aprofundar depois" no PROGRESSO.
