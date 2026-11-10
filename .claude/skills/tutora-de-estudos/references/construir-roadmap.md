@@ -30,6 +30,25 @@ O aluno baixa os livros da lista (`auditoria-roadmaps/RE-DOWNLOAD.md` e `auditor
 - **Varredura cruzada (decisão do aluno, 2026-11-10: "não quero depois ter que revisar todos os livros em busca de temas e capítulos"):** o mapa classificou cada capítulo num módulo só, e às vezes erra o módulo. Antes do portão, rode `python3 auditoria-roadmaps/scripts/varredura_cruzada.py "<módulo>" <termos do assunto>` (termos em inglês e português, os do título dos capítulos) e decida cada candidato: **puxa** (cita na unidade, mesmo vindo de outro tópico) ou **fica** no módulo dele por ser outro assunto. Registre no ROADMAP.md, antes do módulo seguinte, um parágrafo "Varredura cruzada do Mn" com o que foi puxado e o que ficou (e para onde). Módulo sem esse parágrafo não vai ao portão.
 - Livro baixado depois: entra no mapa (remapear o livro) e a cobertura aponta os capítulos novos como pendentes no módulo dele.
 
+### Regras de montagem que a revisão de Arquitetura (2026-11-10) mostrou necessárias
+Cada regra abaixo nasceu de um erro real achado pela revisora; não pule nenhuma.
+1. **Página conferida no PDF, não só no sumário.** Toda citação "capítulo + página" passa por `python3 auditoria-roadmaps/scripts/verifica_paginas.py roadmap/<tópico>/ROADMAP.md` (abre a página no PDF e confere o título; `--corrigir` aplica). Meta: 0 erradas. Página é sempre a **do PDF**: sumário impresso (TAOCP, Smith & Nair) dá página impressa — medir o deslocamento e converter. Livro no disco não leva "?". Livro escaneado sem texto: conferir com OCR (tesseract) e registrar o deslocamento.
+2. **Livro-texto grande é citado por SEÇÃO, nunca pelo capítulo inteiro** (H&P, COD, CS:APP, MOS, OSPP e afins): capítulo inteiro numa unidade esconde seções de outro assunto (ex.: H&P cap. 5 inteiro na coerência levou junto sincronização e consistência). Se o mapa tem só o capítulo, mapeie as seções antes (BRIEF4) e distribua cada seção a uma unidade só.
+3. **A base ensina cada verbo do objetivo.** Antes de fechar a unidade, confira no texto da base que cada coisa prometida no objetivo está lá; se não está, troque a base (ex.: U7.5 prometia preditores de 2 bits e a base era `__builtin_expect`).
+4. **Base de unidade não pode ser livro não baixado.** Livro fora do disco entra só como `aprofunda`/`outra visão`; se ele é a única base, a unidade fica marcada "abrir só depois de baixar" e o livro vai para o topo da lista do aluno.
+5. **Assunto de módulo posterior não vira dependência.** "Outra visão" que usa algo ensinado depois leva `(adiar até Uxx)`; a unidade não depende dela. Promessa de referência cruzada ("volta no módulo X", "fica no módulo Y") é conferida por grep no ROADMAP antes do commit — o capítulo tem de estar lá.
+6. **Rejulgar o que o mapa mandou embora.** Na varredura cruzada, além dos termos, abra `fora-do-topico.md` (capítulos dos livros do tópico que o mapa pôs em outro tópico) e julgue pelo CONTEÚDO, com o sumário da seção ao lado (ex.: COD 6.2, 4.9 e 5.7 e MOS 1.3, 5.1 e 9.6 eram de arquitetura e estavam em SO/Segurança).
+7. **Checklist de currículo.** Ao fechar o tópico, compare as unidades com um currículo de referência do assunto (ex.: ACM/IEEE CS2023 para os tópicos de computação) e liste o que falta: assunto sem unidade → procurar capítulo no acervo; sem fonte → "sem fonte no acervo" (ex.: faltavam E/S no hardware, TLB e segurança microarquitetural).
+8. **NAO_VERIFICADO é específico.** O texto diz o que não foi verificado e por quê, para AQUELA citação; não copie a justificativa de uma unidade para outra.
+9. **Contagens e rótulos verdadeiros.** Cabeçalhos ("Livros dos módulos M1–Mn", nº de unidades) e o rótulo de edição batem entre ROADMAP, mapa e catálogo.
+
+### Revisão de fim de tópico (obrigatória; decisão do aluno, 2026-11-10)
+Tópico só é dado como concluído depois desta revisão — e erro achado nela vira regra nesta seção (corrigir na raiz, não só o sintoma).
+1. `python3 auditoria-roadmaps/scripts/cobertura.py` (0 pendentes/repetidos/órfãs), `lacunas_do_mapa.py` (0) e `verifica_paginas.py` (0 erradas).
+2. `python3 auditoria-roadmaps/scripts/revisao_topico.py <pasta> <termos do tópico>` → gera `fora-do-topico.md`, `varredura-ampla.md` e o brief (`roadmap/_modelos/BRIEF-REVISAO-TOPICO.md`).
+3. Despache a **revisora em contexto limpo, modelo de julgamento (opus)**, com o brief; ela amostra citações no PDF e procura A faltou encaixar · B assunto sem unidade · C lugar errado · D repetição · E ordem · F citação errada · G afirmação sem prova, e escreve "Causas".
+4. Corrija todos os achados (ou registre por que não), rode o passo 1 de novo, e **leve cada Causa para as regras acima**. Só então o tópico vai ao aluno como concluído.
+
 ## F4 · Portão e ordem
 - Mostre ao aluno o ROADMAP do tópico (módulos, nº de unidades, livros que entraram e quais deles estão `não baixado`). Aprovado → entra na `roadmap/ORDEM.md` (ordem global, intercalando tópicos por pré-requisito), commit.
 - Livro baixado depois: volte a F1–F3 só nos assuntos dele e registre em `roadmap/MUDANCAS.md`; unidade já estudada não se reabre, ganha "aprofundar depois" no PROGRESSO.
