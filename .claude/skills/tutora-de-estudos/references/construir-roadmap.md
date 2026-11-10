@@ -25,6 +25,9 @@ O aluno baixa os livros da lista (`auditoria-roadmaps/RE-DOWNLOAD.md` e `auditor
   - exercícios dos livros disponíveis (capítulo e números) — insumo do Testar.
 - Unidade com um livro só é aceita só quando o mapa não tem outro; diga isso na unidade (`fonte única`).
 
+- **Cobertura (decisão do aluno, 2026-11-10): 100% dos capítulos de todos os livros, cada assunto numa unidade só.** Cite nas unidades o título do capítulo **como está no mapa** (o script casa por título). Depois de montar ou editar o módulo, rode `python3 auditoria-roadmaps/scripts/cobertura.py` (gera `roadmap/COBERTURA.md` e `.tsv`). O módulo só vai ao portão com **0 pendentes** (todo capítulo do mapa daquele módulo está em alguma unidade), **0 repetidos** (capítulo em 2+ unidades) e **0 citações órfãs**. Capítulo de outro módulo puxado para cá aparece em "Capítulos de outros módulos já cobertos aqui": quando montar o módulo dele, não o repita.
+- Livro baixado depois: entra no mapa (remapear o livro) e a cobertura aponta os capítulos novos como pendentes no módulo dele.
+
 ## F4 · Portão e ordem
 - Mostre ao aluno o ROADMAP do tópico (módulos, nº de unidades, livros que entraram e quais deles estão `não baixado`). Aprovado → entra na `roadmap/ORDEM.md` (ordem global, intercalando tópicos por pré-requisito), commit.
 - Livro baixado depois: volte a F1–F3 só nos assuntos dele e registre em `roadmap/MUDANCAS.md`; unidade já estudada não se reabre, ganha "aprofundar depois" no PROGRESSO.
