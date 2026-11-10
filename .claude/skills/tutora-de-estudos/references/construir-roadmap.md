@@ -3,7 +3,7 @@
 O estado desta construção mora em `roadmap/PLANO.md` § Estado — atualize-o ao fim de cada fase e antes de parar.
 
 ## F0 · Material (do aluno)
-O aluno baixa os livros da lista (`auditoria-roadmaps/RE-DOWNLOAD.md` e `auditoria-roadmaps/unidades/livros-*.txt`) para `temas/<frente>/material/`. Edição diferente serve. Você confere o disco (`ls temas/*/material/`), marca o que chegou e mantém `roadmap/PLANO.md` § Faltam baixar. **Não espere a lista inteira** para F1–F3 de um tópico cujos livros já estão no disco; mas tópico só fecha (portão) quando todos os livros dele que estão na lista chegaram, ou o aluno aceita fechar sem eles.
+O aluno baixa os livros da lista (`auditoria-roadmaps/RE-DOWNLOAD.md` e `auditoria-roadmaps/unidades/livros-*.txt`) para `temas/<frente>/material/`. Edição diferente serve. Você confere o disco (`ls temas/*/material/`), marca o que chegou e mantém `roadmap/PLANO.md` § Faltam baixar. **Não espere a lista inteira**: livro da lista ainda não baixado entra no mapa e no roadmap pelo sumário que já existe, marcado `não baixado`; o tópico pode passar no portão assim, e o PDF só é pedido quando a unidade chegar à vez de ensinar (decisão do aluno, 2026-11-10). Mantenha `biblioteca/` (hardlinks de todo `temas/*/material/`, fora do git) em dia ao triar.
 
 ## F1 · Sumários
 - Cada livro no disco tem sumário em `auditoria-roadmaps/sumarios/<id>.md` (índice: `_RESUMO.tsv`). Livro novo sem sumário: extraia o sumário do PDF (páginas iniciais, `Read` com `pages`) e grave no mesmo formato. Registre o offset página impressa → página do PDF no topo.
@@ -26,7 +26,7 @@ O aluno baixa os livros da lista (`auditoria-roadmaps/RE-DOWNLOAD.md` e `auditor
 - Unidade com um livro só é aceita só quando o mapa não tem outro; diga isso na unidade (`fonte única`).
 
 ## F4 · Portão e ordem
-- Mostre ao aluno o ROADMAP do tópico (módulos, nº de unidades, livros que entraram e os que faltam baixar). Aprovado → entra na `roadmap/ORDEM.md` (ordem global, intercalando tópicos por pré-requisito), commit.
+- Mostre ao aluno o ROADMAP do tópico (módulos, nº de unidades, livros que entraram e quais deles estão `não baixado`). Aprovado → entra na `roadmap/ORDEM.md` (ordem global, intercalando tópicos por pré-requisito), commit.
 - Livro baixado depois: volte a F1–F3 só nos assuntos dele e registre em `roadmap/MUDANCAS.md`; unidade já estudada não se reabre, ganha "aprofundar depois" no PROGRESSO.
 
 ## Insumos antigos (não refazer o que presta)
