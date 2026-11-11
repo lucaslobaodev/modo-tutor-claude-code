@@ -62,6 +62,12 @@ Cada regra abaixo nasceu de um erro real achado pela revisora; não pule nenhuma
 24. **Remissões internas são pré-requisitos**: ler as remissões ("from Section 11.4", "see 2.2.3") dos capítulos citados e declarar ou reordenar (servidores de eco do CS:APP 12 dependem do 11.4, de Redes).
 25. **Aprovação registrada**: cada "aprovado em" tem a linha correspondente em `roadmap/PROGRESSO.md` § Aprovações, com a resposta do aluno.
 
+### Regras que a revisão de C (2026-11-10) mostrou necessárias
+26. **Capítulo que cobre várias unidades é citado por seção** (na coluna Papel: "2.1–2.6 aqui; 2.7 → U2.2…"), e a seção que é o assunto de outra unidade é lida lá (K&R 2, 4, 5, 6; King 7; Modern C 5). Vale também para a fronteira entre tópicos: um capítulo de linguagem dentro de SO (Effective C 6) vai para o tópico da linguagem.
+27. **A ordem vem das remissões, não da sequência das linhas**: antes de fechar o tópico, leia as remissões "Section X" dos capítulos-base e ordene por elas (funções antes de ponteiros e estruturas; printf logo depois dos fundamentos). O `roadmap/ORDEM.md` é montado unidade a unidade com pré-requisitos reais e passa em `auditoria-roadmaps/scripts/checa_ordem.py` (0 erros; avisos de outro tópico declarados no roadmap). Bloco de tópico entra no ORDEM na posição da triagem.
+28. **Contagem de exercícios como faixa 1..N**, listando os números que faltam e conferindo erros de impressão ("Exercsise 1-6", "5-5" no lugar de 7-5); marcador que aparece duas vezes (texto e nota) conta uma.
+29. **Renumerar unidades uma vez só, por tabela de mapeamento**, e conferir os cabeçalhos e as referências depois; nunca reaplicar substituição sobre texto já renumerado (erro da tutora na revisão de C). Editar arquivo: ler antes de abrir para escrita (o `open(f,'w')` trunca antes do `read`).
+
 ### Revisão de fim de tópico (obrigatória; decisão do aluno, 2026-11-10)
 Tópico só é dado como concluído depois desta revisão — e erro achado nela vira regra nesta seção (corrigir na raiz, não só o sintoma).
 1. `python3 auditoria-roadmaps/scripts/cobertura.py` (0 pendentes/repetidos/órfãs), `lacunas_do_mapa.py` (0) e `verifica_paginas.py` (0 erradas).
