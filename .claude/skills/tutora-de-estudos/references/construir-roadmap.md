@@ -53,6 +53,15 @@ Cada regra abaixo nasceu de um erro real achado pela revisora; não pule nenhuma
 17. **Repetição por assunto, não só por capítulo**: antes de apresentar o módulo, cruze os assuntos do objetivo (grep de termos-chave: FHS, links, timer…) com os objetivos das unidades já escritas; o assunto fica numa unidade só, e a outra fonte vira "outra visão" lá.
 18. **Pré-requisito por unidade e entre tópicos**: cada unidade que usa algo (rsync, sinais, C, grafos) aponta onde aquilo é ensinado; se é depois no mesmo tópico, reordene ou mova; se é em outro tópico, declare. **Uma unidade = um assunto**: capítulo que sobra vira unidade própria ou entra como "anexo declarado".
 
+### Regras que a revisão de SO (2026-11-10) mostrou necessárias
+19. **Exercício só depois de localizado no texto**: primeiro e último número e a página (ou "PROBLEMS: N no capítulo"). "Contar ao abrir" é proibido para livro no disco; seção sem exercício → tarefa da tutora, dita assim. Livro escaneado: OCR também da última página do capítulo (erros: Virtual Machines sem exercícios; CS:APP 8.1 e 7.10–7.12 sem Practice Problems; 4.4BSD com Exercises marcados NAO_VERIFICADO).
+20. **Edição e volume pela folha de rosto** (OCR da p.1), nunca pelo nome do arquivo (UNP "vol-2" era o vol. 1, 2ª ed.).
+21. **"Livro inteiro" só comparando o sumário do mapa com os títulos extraídos do PDF por script**, inclusive partes e apêndices (o mapa do AoMP não tinha o Apêndice B).
+22. **A varredura reexamina também o que já está coberto por tópico anterior**: seção do livro-base que é do assunto deste tópico e está noutro (MOS 8.1.2–8.1.4, 5.8 na Arquitetura; MOS 1.3.6 só dentro de 1.3) é movida — puxar não vale só para órfãos. Se a seção do mapa junta assuntos de unidades diferentes (MOS 2.4: corrida, semáforos, mensagens, barreiras, RCU), o mapa é dividido por subseção, com títulos e páginas tirados do PDF.
+23. **Livro não baixado vai para a unidade pelo conteúdo do sumário, não pelo título** (LKD 12 "Memory Management" é alocação do kernel, não memória virtual).
+24. **Remissões internas são pré-requisitos**: ler as remissões ("from Section 11.4", "see 2.2.3") dos capítulos citados e declarar ou reordenar (servidores de eco do CS:APP 12 dependem do 11.4, de Redes).
+25. **Aprovação registrada**: cada "aprovado em" tem a linha correspondente em `roadmap/PROGRESSO.md` § Aprovações, com a resposta do aluno.
+
 ### Revisão de fim de tópico (obrigatória; decisão do aluno, 2026-11-10)
 Tópico só é dado como concluído depois desta revisão — e erro achado nela vira regra nesta seção (corrigir na raiz, não só o sintoma).
 1. `python3 auditoria-roadmaps/scripts/cobertura.py` (0 pendentes/repetidos/órfãs), `lacunas_do_mapa.py` (0) e `verifica_paginas.py` (0 erradas).
