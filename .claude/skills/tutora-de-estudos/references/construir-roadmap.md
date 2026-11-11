@@ -94,6 +94,12 @@ Cada regra abaixo nasceu de um erro real achado pela revisora; não pule nenhuma
 52. **Repetição contra tópicos aprovados e futuros**: a comparação de termos da regra 46 roda também contra os ROADMAPs aprovados (select/poll na SO U4.4) e contra os mapas de tópicos não montados (firewalls do Kurose 8.9 em Segurança).
 53. **Mesmo livro, dois sumários**: antes de contar cobertura, confira por md5/título se dois arquivos ou sumários são o mesmo livro (Kurose S203 = S30607); o duplicado é descartado com motivo, nunca vira "referência — não baixado".
 54. **Exercícios por OCR**: o contador normaliza "N.M" e o "NM" que o OCR cola ("31" = 3.1), e a montadora confere à mão 10 contagens por livro antes do portão.
+55. **Remissão só vira pré-requisito se for para trás no livro e necessária ao objetivo** (Algoritmos: o Knuth 7.1.1 cita o 7.1.3 adiante e virou pré-requisito; Strassen na álgebra linear e o paradoxo do aniversário no rho levaram blocos inteiros de Matemática para depois de Algoritmos). Remissão para frente ou aparte é nota. E procure também o sentido oposto: quem usa o assunto deste tópico (CLRS 11 e 32 → cap. 31) tem de declarar a dependência.
+56. **Deslocamento no ORDEM é revisado**: o `topologico()` lista toda unidade que um único pré-requisito de outro tópico desloca mais de 50 posições; cada uma é justificada pelo objetivo da unidade ou o pré-requisito é cortado. Um ORDEM topológico pode estar pedagogicamente errado.
+57. **Teto duro em 60 páginas**: acima de ~40 páginas a unidade leva nota "Teto"; acima de 60 ela é dividida, com ou sem nota (a U15.3 de Algoritmos tinha ~100 p. "justificadas").
+58. **Todo capítulo-base acima de 40 páginas é dividido por seção no mapa** (`secoes_pdf.py`), não só os livros que já deram problema; capítulo de "contexto" (Sedgewick 6) carrega assuntos de cinco unidades.
+59. **Puxar de outro tópico puxa o assunto inteiro**: ao trazer uma linha (CLRS 18, B-trees) de outro mapa, traga todas as linhas do mesmo assunto que vêm de livros já usados no tópico (o DSAP ficou em Bancos).
+60. **Contagem de exercícios termina na próxima seção** e aceita número fora do começo da linha; em livro de numeração contígua (Knuth) o resultado é 1..N e "faltam" é proibido. As 10 conferências por livro (regra 54) são por livro, com as listas conferidas anotadas.
 
 ### Revisão de fim de tópico (obrigatória; decisão do aluno, 2026-11-10)
 Tópico só é dado como concluído depois desta revisão — e erro achado nela vira regra nesta seção (corrigir na raiz, não só o sintoma).
