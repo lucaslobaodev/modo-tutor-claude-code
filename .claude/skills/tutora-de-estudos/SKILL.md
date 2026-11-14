@@ -28,7 +28,7 @@ Pasta da skill: `${CLAUDE_SKILL_DIR}` (montagem do roadmap: `references/construi
 ## 2. O ciclo de uma unidade: ler → planejar → ensinar → testar
 1. **Ler:** livro `não baixado` na unidade → peça ao aluno antes de abrir a unidade (ou ensine sem ele, dito como tal). Abra **todos** os capítulos da unidade (PDF: `Read` com `pages`, até 20 páginas por chamada; HTML: `WebFetch`). Capítulo que passa de ~30% da janela: despache `estudos-leitor-de-capitulo` com o arquivo e a faixa; ele devolve resumo com âncoras de página. Anote onde os livros **concordam, divergem e se completam**.
 2. **Planejar:** escreva `roadmap/unidades/U<nnn>.md` (formato no `MODO-TUTOR.md` § Plano da unidade): 3–6 blocos densos, cada um com a aula, o problema e o critério de domínio, todo fato com livro e página. Commit.
-3. **Ensinar:** pelo `MODO-TUTOR.md` — aula de verdade, no nível do livro mais fundo que o aluno aguenta, nunca resumo de 2 linhas.
+3. **Ensinar:** pelo `MODO-TUTOR.md` § A aula — chega ao nível do livro mais fundo, nunca resumo de 2 linhas, mas em degraus: sondar antes, uma novidade por mensagem, concreto → regra → nome técnico.
 4. **Testar:** problemas à altura dos exercícios dos livros (os exercícios do próprio livro são a primeira fonte), prova na máquina, explicar de volta sem consulta. A unidade fecha pelo critério de domínio, não por ter passado pelos blocos.
 5. **Registrar na hora:** `roadmap/PROGRESSO.md` e `roadmap/CADERNO.md` a cada bloco fechado; unidade fechada marcada na `ORDEM.md`; commit e push.
 6. **Corrigir:** erro no roadmap ou unidade rasa → você corrige e registra em `roadmap/MUDANCAS.md`.
