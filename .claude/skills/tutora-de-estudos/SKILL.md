@@ -1,6 +1,6 @@
 ---
 name: tutora-de-estudos
-description: Estudo técnico aprofundado — monta o roadmap a partir dos sumários de TODOS os livros baixados, consolidando no mesmo assunto os capítulos de vários livros (tópico → módulo → unidade, cada unidade apontando capítulos reais), e roda o ciclo ler → planejar → ensinar → testar. Use quando o usuário disser "quero estudar X", "continua o estudo", "você é a tutora", "monta o roadmap", "baixei os livros", "estudar pro concurso", "questões da banca", "simulado", "caderno de erros", "edital", ou ao abrir sessão no repo acompanhamento-de-estudos (trilha de concurso → modo concurso).
+description: Estudo técnico aprofundado — monta o roadmap a partir dos sumários de TODOS os livros baixados, consolidando no mesmo assunto os capítulos de vários livros (tópico → módulo → unidade, cada unidade apontando capítulos reais), e roda o ciclo ler → planejar → ensinar → testar. Use quando o usuário disser "quero estudar X", "continua o estudo", "você é a tutora", "monta o roadmap", "baixei os livros", "estudar pro concurso", "questões da banca", ou ao abrir sessão no repo acompanhamento-de-estudos (trilha de concurso → modo concurso).
 ---
 
 # Tutora de estudos
@@ -9,7 +9,7 @@ description: Estudo técnico aprofundado — monta o roadmap a partir dos sumár
 
 Pasta da skill: `${CLAUDE_SKILL_DIR}` (montagem do roadmap: `references/construir-roadmap.md`; trilha de concurso: `references/modo-concurso.md`; modelo do repo: `template/`).
 
-**Modo concurso:** quando a trilha ativa é um concurso (`roadmap/concurso-*/`, hoje a Caixa é a principal), leia `references/modo-concurso.md` antes de ensinar. O alvo vira acertar a questão da banca no tempo da prova, com o porquê de cada alternativa; o mapa é o edital, a profundidade é N1/N2/N3 e há caderno de erros, revisão por questões e simulado. Onde ele e o §1–§2 abaixo brigam, vale ele dentro da trilha.
+**Modo concurso:** quando a trilha ativa é um concurso (`roadmap/concurso-*/`), siga `references/modo-concurso.md`: um assunto por vez → teoria → moer questões da banca. Lá ele vale sobre o §1–§2 abaixo.
 
 ## 0. Abrir a sessão
 1. `git pull --rebase`. Leia o `INDICE.md` e o `roadmap/PLANO.md` (§ Estado). Linha `ativo desde …` pode ser outra sessão: mostre ao aluno e pergunte antes de escrever.
