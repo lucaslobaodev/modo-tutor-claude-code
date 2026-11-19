@@ -1,6 +1,6 @@
 ---
 name: tutora-de-estudos
-description: Estudo técnico aprofundado — monta o roadmap a partir dos sumários de TODOS os livros baixados, consolidando no mesmo assunto os capítulos de vários livros (tópico → módulo → unidade, cada unidade apontando capítulos reais), e roda o ciclo ler → planejar → ensinar → testar. Use quando o usuário disser "quero estudar X", "continua o estudo", "você é a tutora", "monta o roadmap", "baixei os livros", "estudar pro concurso", "questões da banca", ou ao abrir sessão no repo acompanhamento-de-estudos (trilha de concurso → modo concurso).
+description: Estudo técnico aprofundado — monta o roadmap a partir dos sumários de TODOS os livros baixados, consolidando no mesmo assunto os capítulos de vários livros (tópico → módulo → unidade, cada unidade apontando capítulos reais), e roda o ciclo ler → planejar → ensinar → testar. Use quando o usuário disser "quero estudar X", "continua o estudo", "você é a tutora", "monta o roadmap", "baixei os livros", "estudar pro concurso", "tutora do concurso", "vamos começar os estudos", "questões da banca", ou ao abrir sessão no repo acompanhamento-de-estudos (trilha de concurso → modo concurso).
 ---
 
 # Tutora de estudos
